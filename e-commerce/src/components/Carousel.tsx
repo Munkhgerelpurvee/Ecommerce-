@@ -6,19 +6,19 @@ const slides = [
   {
     title: "2024 оны хамгийн шинэ загвар",
     src: "/images/image 1173.png",
-    price: "50%",
+    price: 50,
     logo: "/images/Vector 14.png",
   },
   {
     title: "2024 оны хамгийн шинэ загвар",
     src: "/images/image 1165.png",
-    price: "85%",
+    price: 85,
     logo: "/images/Vector 14.png",
   },
   {
     title: "2024 оны хамгийн шинэ загвар",
     src: "/images/Living-Room 1@2x.png",
-    price: "35%",
+    price: 35,
     logo: "/images/Vector 14.png",
   },
 ];
@@ -104,7 +104,7 @@ export const Carousel = () => {
 type SlideProps = {
   title: string;
   src: string;
-  price: string;
+  price: number;
   logo: string;
 };
 
@@ -126,21 +126,20 @@ const Slide = ({ title, src, price, logo }: SlideProps) => {
         </div>
 
         {/* <Image src={image} className="object-cover w-full h-full" /> */}
-        <div className="flex flex-1">
-          <div className="w-[450px] h-[450px] rounded-full bg-[#ECD2FA] relative">
-            <div>
-              <Image
-                src={src}
-                alt="Logo"
-                width={430}
-                height={430}
-                className="object-cover absolute left-[700px] top-[185px]"
-              />
-            </div>
+        <div className="flex flex-1 relative">
+          <div className="w-[450px] h-[450px] rounded-full bg-[#ECD2FA] absolute opacity-35 "></div>
+          <div>
+            <Image
+              src={src}
+              alt="Logo"
+              width={430}
+              height={430}
+              className="object-cover absolute left-[700px] top-[185px]"
+            />
           </div>
         </div>
       </div>
-      <div className="text-[#fff] font-medium">{price}</div>
+      {/*  */}/<div className="text-[#fff] font-medium">{price}%</div>
       <div>
         <Image
           src={logo}
