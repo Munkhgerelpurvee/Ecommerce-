@@ -1,7 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { api } from "../axios";
+import axios from "axios";
+
 const slides = [
   {
     title: "2024 оны хамгийн шинэ загвар",
@@ -23,12 +26,29 @@ const slides = [
   },
 ];
 
+console.log(process.env.NEXT_PUBLIC_API);
+
 export const Carousel = () => {
   const [slideIndex, setSlideIndex] = useState<number>(0);
+  const [res, setRes] = useState<string>("");
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        console.log("HELLOOOO CAROUSEL from FRONTEND");
+
+        const res = await api.get("/");
+        setRes(res.data.message);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <>
       <div className="w-screen h-[800px] overflow-hidden border relative border-blue-800 ">
+        <h1>{res}</h1>
         {/* Slide-g component bolgoh */}
         <div
           className="w-[300%] h-full flex [&>div]:5xl"
@@ -127,28 +147,34 @@ const Slide = ({ title, src, price, logo }: SlideProps) => {
 
         {/* <Image src={image} className="object-cover w-full h-full" /> */}
         <div className="flex flex-1 relative">
-          <div className="w-[450px] h-[450px] rounded-full bg-[#ECD2FA] absolute opacity-35 "></div>
+          <div className="w-[400px] h-[400px] left-[400px] top-[185px] rounded-full bg-[#ECD2FA] absolute opacity-35 "></div>
           <div>
             <Image
               src={src}
               alt="Logo"
               width={430}
               height={430}
-              className="object-cover absolute left-[700px] top-[185px]"
+              priority={true}
+              className="object-cover absolute w-[200px] h-[200px] left-[520px] top-[285px]"
             />
           </div>
         </div>
+        <div className="flex flex-1 relative">
+          <Image
+            src={logo}
+            alt="CVG-Logo"
+            width={135}
+            height={135}
+            priority={true}
+            className="object-cover absolute left-[500px] top-[165px] w-[100px] h-[100px] "
+          />
+
+          <div className="text-[#fff] font-medium absolute left-[550px] top-[220px]">
+            {price}%
+          </div>
+        </div>
       </div>
-      {/*  */}/<div className="text-[#fff] font-medium">{price}%</div>
-      <div>
-        <Image
-          src={logo}
-          alt="CVG-Logo"
-          width={135}
-          height={135}
-          className="object-cover absolute left-[1080px] top-[165px]"
-        />
-      </div>
+      {/*  */}
     </div>
   );
 };
