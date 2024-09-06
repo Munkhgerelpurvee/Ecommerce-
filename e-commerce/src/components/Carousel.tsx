@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { api } from "../axios";
 import axios from "axios";
+import { Container } from "./Container";
 
 const slides = [
   {
@@ -47,75 +48,77 @@ export const Carousel = () => {
 
   return (
     <>
-      <div className="w-screen h-[800px] overflow-hidden border relative border-blue-800 ">
-        <h1>{res}</h1>
-        {/* Slide-g component bolgoh */}
-        <div
-          className="w-[300%] h-full flex [&>div]:5xl"
-          style={{
-            transform: `translateX(-${(slideIndex * 100) / 3}%)`,
-            transition: "transform 0.5s",
-          }}
-        >
-          {/* <div className="flex-1 h-full flex justify-center items-center">
+      <Container>
+        <div className="rounded-2xl my-10 h-[800px] overflow-hidden border relative border-blue-800 ">
+          <h1>{res}</h1>
+          {/* Slide-g component bolgoh */}
+          <div
+            className="w-[300%] h-full flex [&>div]:5xl"
+            style={{
+              transform: `translateX(-${(slideIndex * 100) / 3}%)`,
+              transition: "transform 0.5s",
+            }}
+          >
+            {/* <div className="flex-1 h-full flex justify-center items-center">
             Slide1
-          </div>
-          <div className="flex-1 h-full flex justify-center items-center">
+            </div>
+            <div className="flex-1 h-full flex justify-center items-center">
             Slide2
-          </div>
-          <div className="flex-1 h-full flex justify-center items-center">
+            </div>
+            <div className="flex-1 h-full flex justify-center items-center">
             Slide3
-          </div> */}
+            </div> */}
 
-          {slides.map((slideItem, index) => {
-            return (
-              <div key={index} className="w-[100%]">
-                <Slide
-                  title={slideItem.title}
-                  src={slideItem.src}
-                  price={slideItem.price}
-                  logo={slideItem.logo}
-                />
-              </div>
-            );
-          })}
-        </div>
-        {/* slideIndex-iig component bolgoh */}
-        <div className="absolute flex gap-4 bottom-4 left-[calc(50%-52px)]">
-          {/* <div
+            {slides.map((slideItem, index) => {
+              return (
+                <div key={index} className="w-[100%]">
+                  <Slide
+                    title={slideItem.title}
+                    src={slideItem.src}
+                    price={slideItem.price}
+                    logo={slideItem.logo}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/* slideIndex-iig component bolgoh */}
+          <div className="absolute flex gap-4 bottom-4 left-[calc(50%-52px)]">
+            {/* <div
             className={`w-6 h-6 rounded-md ${
               slideIndex === 0 ? "bg-slate-700" : "bg-slate-400"
-            } `}
-            onClick={() => {
-              setSlideIndex(0);
-            }}
-          ></div>
-          <div
-            className={`w-6 h-6 rounded-md ${
-              slideIndex === 1 ? "bg-slate-700" : "bg-slate-400"
-            } `}
-            onClick={() => {
-              setSlideIndex(1);
-            }}
-          ></div>
-          <div
-            className={`w-6 h-6 rounded-md ${
-              slideIndex === 2 ? "bg-slate-700" : "bg-slate-400"
-            } `}
-            onClick={() => {
-              setSlideIndex(2);
-            }}
-          ></div> */}
-          {slides.map((_, index) => (
-            <Indicator
-              key={index}
-              activeColor={index === slideIndex}
-              setSlideIndex={setSlideIndex}
-              onClick={() => setSlideIndex(index)}
-            />
-          ))}
+              } `}
+              onClick={() => {
+                setSlideIndex(0);
+                }}
+                ></div>
+                <div
+                className={`w-6 h-6 rounded-md ${
+                  slideIndex === 1 ? "bg-slate-700" : "bg-slate-400"
+                  } `}
+                  onClick={() => {
+                    setSlideIndex(1);
+                    }}
+                    ></div>
+                    <div
+                    className={`w-6 h-6 rounded-md ${
+                      slideIndex === 2 ? "bg-slate-700" : "bg-slate-400"
+                      } `}
+                      onClick={() => {
+                        setSlideIndex(2);
+                        }}
+                        ></div> */}
+            {slides.map((_, index) => (
+              <Indicator
+                key={index}
+                activeColor={index === slideIndex}
+                setSlideIndex={setSlideIndex}
+                onClick={() => setSlideIndex(index)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
