@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { api } from "../axios";
 import { Container } from "./Container";
-import { ProductCard1 } from "./ProductCard";
+import { ProductCard } from "./ProductCard";
 
 const slidesProduct = [
   {
@@ -100,73 +100,10 @@ const slidesProduct = [
 
 console.log(process.env.NEXT_PUBLIC_API);
 
-// export const ProductGrid = () => {
-//   const [res, setRes] = useState<string>("");
-//   useEffect(() => {
-//     const getData = async () => {
-//       try {
-//         console.log("HELLOOOO CAROUSEL from FRONTEND");
-
-//         const res = await api.get("/");
-//         setRes(res.data.message);
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-//     getData();
-//   }, []);
-
-//   return (
-//     <Container>
-//       <h1>{res}</h1>
-
-//       <div className="grid grid-cols-4 grid-rows-5 [&>div:nth-child(7)]:col-span-2 [&>div:nth-child(8)]:col-span-2   gap-6 my-10">
-//         {slidesProduct.map((product, index) => {
-//           const customHeigh =
-//             index === 6 ? "h-[690px]" : index === 7 ? "h-[690px]" : "h-[330px]";
-//           return (
-//             <ProductCard
-//               key={index}
-//               title={product.title}
-//               price={product.price}
-//               src={product.src}
-//               customHeigh={customHeigh}
-//             />
-//           );
-//         })}
-//         ;
-//       </div>
-//     </Container>
-//   );
-// };
-
-// // Slide-g component bolgoh
-// type ProductCardProps = {
-//   title: string;
-//   src: string;
-//   price: number;
-//   customHeigh?: string;
-// };
-
-// const ProductCard = ({ title, src, price, customHeigh }: ProductCardProps) => {
-//   return (
-//     <div className={` border rounded-lg mb-4 bg-white hover:shadow-lg  `}>
-//       <div className={`${customHeigh} relative w-full`}>
-//         <Image src={src} alt="Logo" fill className="object-cover" />
-//       </div>
-
-//       <div className="mt-4">
-//         <h2 className="text-lg font-medium ">{title}</h2>
-//         <p className="text-gray-500 mt-1">{price}</p>
-//       </div>
-//     </div>
-//   );
-// };
-//
 export const ProductGrid = () => {
   return (
     <Container>
-      <div className=" grid grid-cols-4 grid-rows-5 gap-5 my-10 [&>div:nth-child(7)]:col-span-2  [&>div:nth-child(8)]:col-span-2 ">
+      <div className=" grid grid-cols-4 grid-flow-row gap-5 my-10  [&>div:nth-child(7)]:bg-orange-500 [&>div:nth-child(7)]:col-span-2 [&>div:nth-child(7)]:row-span-2 [&>div:nth-child(8)]:bg-orange-500 [&>div:nth-child(8)]:col-span-2 [&>div:nth-child(8)]:row-span-2">
         {slidesProduct.map((item, index) => {
           const customHeigh =
             index === 6
@@ -176,13 +113,15 @@ export const ProductGrid = () => {
               : "h-[330px] w-full";
 
           return (
-            <ProductCard1
-              key={index}
-              src={item.src}
-              title={item.title}
-              price={item.price}
-              customHeigh={customHeigh}
-            />
+            <div key={index}>
+              <ProductCard
+                key={index}
+                src={item.src}
+                title={item.title}
+                price={item.price}
+                customHeigh={customHeigh}
+              />
+            </div>
           );
         })}
       </div>
