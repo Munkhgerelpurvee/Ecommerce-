@@ -26,9 +26,11 @@ export const Navbar = () => {
       <div className="flex gap-4 justify-center items-center ">
         <Heart className="text-[#fff] " />
         <ShoppingCart className="text-[#fff] " />
-        <Button className="bg-black border border-[#2563EB] font-normal text-sm">
-          Бүртгүүлэх
-        </Button>
+        <Link href="/register">
+          <Button className="bg-black border border-[#2563EB] font-normal text-sm">
+            Бүртгүүлэх
+          </Button>
+        </Link>
         <Button className="bg-[#0166FF] font-normal text-sm">Нэвтрэх</Button>
       </div>
     </main>

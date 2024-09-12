@@ -37,11 +37,9 @@ export const Footer = () => {
               <Mail className="w-5 h-5 text-white" />
             </div>
             <Link href="/dashboard">
-              <Link href="#">
-                <div className=" text-[#fff] text-sm font-normal ">
-                  contact@ecommerce.mn
-                </div>
-              </Link>
+              <div className=" text-[#fff] text-sm font-normal ">
+                contact@ecommerce.mn
+              </div>
             </Link>
           </div>
         </div>
