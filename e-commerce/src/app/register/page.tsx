@@ -8,7 +8,7 @@ import { Container } from "../../components/Container";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Dot } from "lucide-react";
-import { Formik, FormikValues, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as yup from "yup";
 
 interface FormValues {
@@ -63,7 +63,7 @@ export default function Register() {
             <div className="w-[334px] h-[436px] flex flex-col justify-center items-center gap-y-5 bg-pink-200">
               <Input
                 placeholder="Нэр"
-                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-10"
+                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-9"
                 value={formik.values.name}
                 name="name"
                 onChange={formik.handleChange}
@@ -74,7 +74,7 @@ export default function Register() {
               <Input
                 type="email"
                 placeholder="Имэйл хаяг"
-                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-10"
+                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-9"
                 value={formik.values.email}
                 name="email"
                 onChange={formik.handleChange}
@@ -87,7 +87,7 @@ export default function Register() {
               <Input
                 type="password"
                 placeholder="Нууц үг"
-                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-10"
+                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-9"
                 value={formik.values.password}
                 name="password"
                 onChange={formik.handleChange}
@@ -100,7 +100,7 @@ export default function Register() {
               <Input
                 type="password"
                 placeholder="Нууц үг давтах"
-                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-10"
+                className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-9"
                 value={formik.values.password}
                 name="password"
                 onChange={formik.handleChange}

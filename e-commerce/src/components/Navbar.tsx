@@ -31,7 +31,9 @@ export const Navbar = () => {
             Бүртгүүлэх
           </Button>
         </Link>
-        <Button className="bg-[#0166FF] font-normal text-sm">Нэвтрэх</Button>
+        <Link href="/login">
+          <Button className="bg-[#0166FF] font-normal text-sm">Нэвтрэх</Button>
+        </Link>
       </div>
     </main>
   );

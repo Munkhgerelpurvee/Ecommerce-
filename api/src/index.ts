@@ -1,14 +1,26 @@
 import express from "express";
 import cors from "cors";
+import { connectToDatabase } from "./database";
+import { userModel } from "./models/UserModel";
 
+import { userRouter } from "./routers/user.router";
+import { categoryRouter } from "./routers/category.router";
+import { productRouter } from "./routers/product.router";
+
+connectToDatabase();
 const app = express();
 
 app.options("*", cors());
 app.use(cors());
 app.use(express.json());
 
+// CRUD Routers
+app.use(userRouter);
+app.use(categoryRouter);
+app.use(productRouter);
+
 app.get("/", (_req, res) => {
-  res.json({ message: "HELLO WORLD TYPESCRIPT" });
+  res.send([{ name: "USERNAME" }]);
 });
 
 app.listen(5001, () => {
