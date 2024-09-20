@@ -11,9 +11,9 @@ const userRouter = Router();
 
 userRouter
   .get("/users", getUsers)
-  .post("/users", createUser)
-  .put("/users/:id", updateUser)
-  .delete("/users/:id", deleteUser)
-  .get("/users/:id", getOneUser);
+  .post("/user", createUser)
+  .put("/user/:id", updateUser)
+  .delete("/user/:id", deleteUser)
+  .get("/user/:id", getOneUser);
 
 export { userRouter };

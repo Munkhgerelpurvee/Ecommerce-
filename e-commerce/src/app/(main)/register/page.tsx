@@ -2,11 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
-import { Container } from "../../components/Container";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+import axios from "axios";
+import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
+import { Container } from "../../../components/Container";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 import { Dot } from "lucide-react";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -15,14 +16,30 @@ interface FormValues {
   name: string | number;
   email: string | number;
   password: string | number;
+  passwordConfirm: string | number;
 }
 
-export default function Register() {
+function Register() {
+  const [formValues, setFormValues] = useState<FormValues>({
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  }
   const formik = useFormik<FormValues>({
     initialValues: {
       name: "",
       email: "",
       password: "",
+      passwordConfirm: "",
     },
 
     validationSchema: yup.object({
@@ -39,12 +56,47 @@ export default function Register() {
         .matches(/\d/, "Тоо орсон байх ёстой")
         .matches(/[\W_]/, "Тэмдэгт орсон байх ёстой")
         .required("Нууц үг шаардлагатай"),
+      passwordConfirm: yup
+        .string()
+        .oneOf([yup.ref("password")], "Нууц үг таарахгүй байна")
+        .required("Нууц үг давтана уу"),
     }),
 
     onSubmit: (values) => {
       console.log("Form submitted", values);
     },
   });
+  // submit функц дарахад backEnd рүү явуулах
+  async function submit(e: React.FormEvent) {
+    e.preventDefault(); // Формын үндсэн үйлдлийг зогсоох
+    // axios("http://localhost:5001/register", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     name,
+    //     email,
+    //     password,
+    //   }),
+    // }).then((res) => {
+    //   if (res.ok) {
+    //     res.send("Successfully registered");
+    //   } else {
+    //     res.sendStatus(401);
+    //   }
+    // });
+    try {
+      const response = await axios.post(
+        "http://localhost:5001/register",
+        formValues
+      );
+      if (response.status === 200) {
+        console.log("Successfully registered");
+      } else {
+        console.error("Registration failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   //   formik цаанаасаа handleChange -ийг өгч байгаа.
 
@@ -54,7 +106,8 @@ export default function Register() {
       <Container>
         <div className="w-full h-full flex flex-col bg-gray-200 justify-center items-center">
           <form
-            onSubmit={formik.handleSubmit}
+            // onSubmit={formik.handleSubmit}
+            onSubmit={submit}
             className="w-full h-full  flex  flex-col justify-center items-center"
           >
             <h1 className=" text-[#09090B] font-semibold text-[24px] mt-44 mb-10">
@@ -101,13 +154,13 @@ export default function Register() {
                 type="password"
                 placeholder="Нууц үг давтах"
                 className="bg-[#F3F4F6] rounded-[8px] border-2 border-[#D1D5DB] h-9"
-                value={formik.values.password}
-                name="password"
+                value={formik.values.passwordConfirm}
+                name="passwordConfirm"
                 onChange={formik.handleChange}
               />
-              {formik.errors.password ? (
+              {formik.errors.passwordConfirm ? (
                 <div className="text-sm text-red-500">
-                  {formik.errors.password}
+                  {formik.errors.passwordConfirm}
                 </div>
               ) : null}
               <ul className="text-[#71717A] font-normal text-xs ">
@@ -134,6 +187,7 @@ export default function Register() {
                 className="w-full rounded-2xl bg-[#0166FF] text-sm font-normal text-white"
                 type="submit"
                 onClick={() => formik.handleChange}
+                // onClick={submit}
               >
                 Үүсгэх
               </Button>
@@ -155,3 +209,5 @@ export default function Register() {
     </>
   );
 }
+
+export default Register;

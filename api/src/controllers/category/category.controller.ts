@@ -31,6 +31,8 @@ const createCategory: RequestHandler = async (req, res) => {
     const { categoryName } = req.body;
     const category = await categoryModel.create({
       categoryName: categoryName,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     res.send(category);
   } catch (error) {

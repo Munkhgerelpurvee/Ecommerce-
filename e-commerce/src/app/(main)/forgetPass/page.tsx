@@ -1,16 +1,16 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
-import { Container } from "../../components/Container";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
+import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
+import { Container } from "../../../components/Container";
 
 // import { useAuth } from "@/components/AuthContext";
 import { useState } from "react";
 
-export default function Home() {
+function ForgetPass() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -52,3 +52,5 @@ export default function Home() {
     </>
   );
 }
+
+export default ForgetPass;

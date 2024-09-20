@@ -11,9 +11,9 @@ const productRouter = Router();
 
 productRouter
   .get("/products", getProducts)
-  .get("/product", getOneProduct)
   .post("/product", createProduct)
-  .put("/product", updateProduct)
-  .delete("/product", deleteProduct);
+  .get("/product/:id", getOneProduct)
+  .put("/product/:id", updateProduct)
+  .delete("/product/:id", deleteProduct);
 
 export { productRouter };

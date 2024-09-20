@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Container } from "../../components/Container";
-import { Button } from "../../components/ui/button";
+import { Container } from "../../../components/Container";
+import { Button } from "../../../components/ui/button";
 import { Heart } from "lucide-react";
 import { Star } from "lucide-react";
 
-import { Navbar } from "../../components/Navbar";
-import { Footer } from "../../components/Footer";
+import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
 //
 const detailPics = [
   "/images/detail1.png",
@@ -59,7 +59,7 @@ const slidesDetail = [
     price: 85,
   },
 ];
-export default function Home() {
+function Detail() {
   return (
     <>
       <Navbar />
@@ -206,3 +206,5 @@ const DetailCard = ({ title, src, price }: SlideProps) => {
     </div>
   );
 };
+
+export default Detail;

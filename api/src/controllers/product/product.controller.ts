@@ -4,7 +4,9 @@ import { RequestHandler } from "express";
 // CRUD
 const getProducts: RequestHandler = async (req, res) => {
   try {
-    const products = await productModel.find();
+    const products = await productModel.find().populate("categories", {
+      categoryName: 1,
+    });
     res.send(products);
   } catch (error) {
     ("");
@@ -13,6 +15,7 @@ const getProducts: RequestHandler = async (req, res) => {
 };
 // CRUD
 const getOneProduct: RequestHandler = async (req, res) => {
+  console.log("WHERE getOneProduct REQ.PARAMS", req.params);
   const { id } = req.params;
   try {
     const product = await productModel.findById(id);
@@ -34,6 +37,7 @@ const createProduct: RequestHandler = async (req, res) => {
       description,
       averageRating,
       totalReview,
+      categories,
     } = req.body;
 
     const product = await productModel.create({
@@ -41,9 +45,12 @@ const createProduct: RequestHandler = async (req, res) => {
       price: price,
       image: image,
       size: size,
+      categories: categories,
       description: description,
       averageRating: averageRating,
       totalReview: totalReview,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     res.send(product);
@@ -65,16 +72,36 @@ const updateProduct: RequestHandler = async (req, res) => {
     } = req.body;
 
     const { id } = req.params;
-    const product = await productModel.findByIdAndUpdate(id, {
-      productName,
-      price,
-      image,
-      size,
-      description,
-      averageRating,
-      totalReview,
-    });
-    res.send(product);
+    const product = await productModel.findById(id);
+    // const updatedProduct = await productModel.findByIdAndUpdate(id, {
+    //   productName,
+    //   price,
+    //   image,
+    //   size,
+    //   description,
+    //   averageRating,
+    //   totalReview,
+    // });
+
+    const updatedProduct = await productModel.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          productName,
+          price,
+          image,
+          size,
+          description,
+          averageRating,
+          totalReview,
+        },
+      },
+      { new: true }
+    );
+    console.log(product);
+    console.log(updatedProduct);
+
+    res.send(updatedProduct);
   } catch (error) {
     ("");
     res.status(400).json({ ErrorMessage: " Error happenned" });

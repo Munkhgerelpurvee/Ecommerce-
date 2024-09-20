@@ -25,13 +25,16 @@ const getOneUser: RequestHandler = async (req, res) => {
 // CRUD
 const createUser: RequestHandler = async (req, res) => {
   try {
-    console.log("WHERE IS MY REQ.BODY", req.body);
+    console.log("WHERE IS createUser REQ.BODY", req.body);
 
-    const { name, email, password } = req.body;
+    const { name, email, password, description } = req.body;
     const user = await userModel.create({
       name: name,
       email: email,
       password: password,
+      description: description,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     res.send(user);
   } catch (error) {
@@ -45,12 +48,13 @@ const updateUser: RequestHandler = async (req, res) => {
   try {
     console.log("WHERE IS MY REQ.BODY", req.body);
 
-    const { name, email, password } = req.body;
+    const { name, email, password, description } = req.body;
     const { id } = req.params;
     const user = await userModel.findByIdAndUpdate(id, {
       name: name,
       email: email,
       password: password,
+      description: description,
     });
     res.send(user);
   } catch (error) {
