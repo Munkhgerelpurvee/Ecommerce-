@@ -7,14 +7,14 @@ import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
 import { Container } from "../../../components/Container";
 
-// import { useAuth } from "@/components/AuthContext";
+// import { useAuth } from "../../../components/providers/AuthProvider";
 import { useState } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  //   const { login } = useAuth();
+  // const { login } = useAuth();
   return (
     <>
       <Navbar />
@@ -47,7 +47,7 @@ function Login() {
                 <Button
                   variant="outline"
                   className="w-full rounded-2xl bg-[#0166FF]"
-                  //   onClick={() => login(email, password)}
+                  // onClick={() => login(email, password)}
                 >
                   <h3 className="text-sm font-medium text-white">Нэвтрэх</h3>
                 </Button>
@@ -57,13 +57,17 @@ function Login() {
                   </h6>
                   <div className="border-b-2 border-[#71717A] mb-12"></div>
                 </Link>
-                <Button
-                  variant="outline"
-                  className="w-full rounded-2xl bg-[#0166FF]"
-                  //   onClick={() => login(email, password)}
-                >
-                  <h3 className="text-sm font-medium text-white">Бүртгүүлэх</h3>
-                </Button>
+                <Link href="/register" className="w-full">
+                  <Button
+                    variant="outline"
+                    className="w-full rounded-2xl bg-[#0166FF]"
+                    // onClick={() => login(email, password)}
+                  >
+                    <h3 className="text-sm font-medium text-white">
+                      Бүртгүүлэх
+                    </h3>
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

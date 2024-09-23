@@ -12,11 +12,14 @@ import { Dot } from "lucide-react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+import { RequestHandler } from "express";
+import { api } from "@/axios";
+
 interface FormValues {
-  name: string | number;
-  email: string | number;
-  password: string | number;
-  passwordConfirm: string | number;
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 }
 
 function Register() {
@@ -64,39 +67,20 @@ function Register() {
 
     onSubmit: (values) => {
       console.log("Form submitted", values);
+      submit(values.name, values.email, values.password);
     },
   });
   // submit функц дарахад backEnd рүү явуулах
-  async function submit(e: React.FormEvent) {
-    e.preventDefault(); // Формын үндсэн үйлдлийг зогсоох
-    // axios("http://localhost:5001/register", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name,
-    //     email,
-    //     password,
-    //   }),
-    // }).then((res) => {
-    //   if (res.ok) {
-    //     res.send("Successfully registered");
-    //   } else {
-    //     res.sendStatus(401);
-    //   }
-    // });
+  const submit = async (name: string, email: string, password: string) => {
+    console.log(name, email, password);
+
     try {
-      const response = await axios.post(
-        "http://localhost:5001/register",
-        formValues
-      );
-      if (response.status === 200) {
-        console.log("Successfully registered");
-      } else {
-        console.error("Registration failed");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+      const response = await api.post("/register", { name, email, password });
+      console.log("Successfully registered", response.data.newUser);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   //   formik цаанаасаа handleChange -ийг өгч байгаа.
 
@@ -106,8 +90,8 @@ function Register() {
       <Container>
         <div className="w-full h-full flex flex-col bg-gray-200 justify-center items-center">
           <form
-            // onSubmit={formik.handleSubmit}
-            onSubmit={submit}
+            onSubmit={formik.handleSubmit}
+            // onSubmit={submit}
             className="w-full h-full  flex  flex-col justify-center items-center"
           >
             <h1 className=" text-[#09090B] font-semibold text-[24px] mt-44 mb-10">
@@ -187,7 +171,6 @@ function Register() {
                 className="w-full rounded-2xl bg-[#0166FF] text-sm font-normal text-white"
                 type="submit"
                 onClick={() => formik.handleChange}
-                // onClick={submit}
               >
                 Үүсгэх
               </Button>

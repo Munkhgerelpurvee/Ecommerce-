@@ -73,15 +73,6 @@ const updateProduct: RequestHandler = async (req, res) => {
 
     const { id } = req.params;
     const product = await productModel.findById(id);
-    // const updatedProduct = await productModel.findByIdAndUpdate(id, {
-    //   productName,
-    //   price,
-    //   image,
-    //   size,
-    //   description,
-    //   averageRating,
-    //   totalReview,
-    // });
 
     const updatedProduct = await productModel.findOneAndUpdate(
       { _id: id },

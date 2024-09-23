@@ -11,27 +11,29 @@ const SALT_SECRET = process.env.SALT_SECRET || "";
 // Authentication
 // npm i bcrypt - хэрэглэгчийн өгсөн пасс-г encrypt хийх package
 const register: RequestHandler = async (req, res) => {
+  console.log(req.body);
+
   try {
     const { name, email, password, description } = req.body;
     if (!email || !password) return res.sendStatus(400);
-    console.log(SALT_SECRET);
+    // console.log(SALT_SECRET);
 
     const hashedPassword = await bcrypt.hash(
       String(password),
       Number(SALT_SECRET)
     );
-    console.log("19 row is working");
+    // console.log("19 row is working");
 
-    await userModel.create({
+    const newUser = await userModel.create({
       name,
       email,
       password: hashedPassword,
       description,
     });
 
-    console.log("28- row is working");
+    // console.log("28- row is working");
 
-    res.send("Successfully registered");
+    res.send({ message: "Successfully registered", newUser });
   } catch (error) {
     console.log(error);
 
