@@ -9,10 +9,16 @@ import { Footer } from "../../components/Footer";
 function Home() {
   return (
     <>
-      <Navbar />
-      <Carousel />
-      <CarouselHoodie />
-      <ProductGrid />
+      {/* <Navbar /> */}
+      {/* <Carousel /> */}
+      {/* <CarouselHoodie /> */}
+      {/* <ProductGrid /> */}
+      <Image
+        src={`https://res.cloudinary.com/dkjxck7iu/image/upload/v1726459218/cld-sample-4.jpg`}
+        width={600}
+        height={500}
+        alt="icon"
+      />
 
       <Footer />
     </>

@@ -15,7 +15,7 @@ const getProducts: RequestHandler = async (req, res) => {
 };
 // CRUD
 const getOneProduct: RequestHandler = async (req, res) => {
-  console.log("WHERE getOneProduct REQ.PARAMS", req.params);
+  // console.log("WHERE getOneProduct REQ.PARAMS", req.params);
   const { id } = req.params;
   try {
     const product = await productModel.findById(id);
@@ -28,7 +28,7 @@ const getOneProduct: RequestHandler = async (req, res) => {
 // CRUD
 const createProduct: RequestHandler = async (req, res) => {
   try {
-    console.log("WHERE IS CREATE PRODUCTs REQ.BODY", req.body);
+    // console.log("WHERE IS CREATE PRODUCTs REQ.BODY", req.body);
     const {
       productName,
       price,

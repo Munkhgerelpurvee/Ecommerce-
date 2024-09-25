@@ -7,6 +7,7 @@ import { userRouter } from "./routers/user.router";
 import { categoryRouter } from "./routers/category.router";
 import { productRouter } from "./routers/product.router";
 import { authRouter } from "./routers/Auth.router";
+import { uploadRouter } from "./routers/upload.router";
 
 connectToDatabase();
 const app = express();
@@ -20,6 +21,7 @@ app.use(userRouter);
 app.use(categoryRouter);
 app.use(productRouter);
 app.use(authRouter);
+app.use(uploadRouter);
 
 app.get("/", (_req, res) => {
   res.send([{ name: "USERNAME" }]);

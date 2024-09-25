@@ -26,7 +26,7 @@ const getOneCategory: RequestHandler = async (req, res) => {
 // CRUD
 const createCategory: RequestHandler = async (req, res) => {
   try {
-    console.log("WHERE IS MY REQ.BODY", req.body);
+    // console.log("WHERE IS MY REQ.BODY", req.body);
 
     const { categoryName } = req.body;
     const category = await categoryModel.create({
@@ -44,7 +44,7 @@ const createCategory: RequestHandler = async (req, res) => {
 // CRUD
 const updateCategory: RequestHandler = async (req, res) => {
   try {
-    console.log("WHERE IS MY REQ.BODY", req.body);
+    // console.log("WHERE IS MY REQ.BODY", req.body);
 
     const { categoryName } = req.body;
     const { id } = req.params;
