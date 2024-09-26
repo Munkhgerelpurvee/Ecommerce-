@@ -12,22 +12,34 @@ const Page = () => {
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.currentTarget.files;
+    console.log(files);
     if (files) {
       setImage(files[0]);
     }
   };
+
   console.log("SELECTED IMAGE FROM uploader : ", image);
 
+  // handleUpload cloudinary ruu upload hiih function
   const handleUpload = async () => {
     if (!image) return;
+
     const formData = new FormData();
+    console.log(formData);
+
     formData.append("image", image);
 
     try {
       setLoading(true);
-      const response = await api.post("/register", { formData });
+      console.log(formData);
+
+      const response = await api.post("/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       //   const data = await response.json();
-      //   console.log("uploaded: ", data);
+      console.log("uploaded: ", response.data);
       setLoading(false);
     } catch (error) {
       console.log("ERROR UPLOADING FILE:", error);
@@ -39,10 +51,14 @@ const Page = () => {
       <div className="border p-8 rounded-2xl max-w-sm full w-full text-center flex flex-col gap-5">
         <h2 className="text-[24px] font-semibold mb-3">IMAGE UPLOADER</h2>
         <input type="file" onChange={handleFileChange} />
-        <Button onClick={handleUpload}>
+        <Button onClick={handleUpload} className="bg-blue-500">
           {loading ? (
-            // <Image src="/spinner.svg" width={40} height={40} alt="spinner" />
-            <Loader />
+            <Image
+              src="/images/bars-rotate-fade.svg"
+              width={40}
+              height={40}
+              alt="spinner"
+            />
           ) : (
             "Upload"
           )}

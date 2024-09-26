@@ -7,17 +7,17 @@ import { Container } from "./Container";
 const slidesHoodie = [
   {
     title: "Wildflower Hoodie",
-    src: "/images/hoodie.png",
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1727317982/iqy9ddrq9z3f8xq2mrmm.png",
     price: 120,
   },
   {
     title: "Wildflower Hoodie",
-    src: "/images/hoodie.png",
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1727317982/iqy9ddrq9z3f8xq2mrmm.png",
     price: 85,
   },
   {
     title: "Wildflower Hoodie",
-    src: "/images/hoodie.png",
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1727317982/iqy9ddrq9z3f8xq2mrmm.png",
     price: 35,
   },
 ];

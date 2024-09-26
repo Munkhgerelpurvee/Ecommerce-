@@ -9,19 +9,22 @@ import { Container } from "./Container";
 const slides = [
   {
     title: "2024 оны хамгийн шинэ загвар",
-    src: "/images/image 1173.png",
+
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1726459216/samples/chair.png",
     price: 50,
     logo: "/images/Vector 14.png",
   },
   {
     title: "2024 оны хамгийн шинэ загвар",
-    src: "/images/image 1165.png",
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1726459208/samples/ecommerce/shoes.png",
+
     price: 85,
     logo: "/images/Vector 14.png",
   },
   {
     title: "2024 оны хамгийн шинэ загвар",
-    src: "/images/Living-Room 1@2x.png",
+    src: "https://res.cloudinary.com/dkjxck7iu/image/upload/v1727318028/sj15gzyjcsawu8punvuc.png",
+
     price: 35,
     logo: "/images/Vector 14.png",
   },
@@ -51,7 +54,7 @@ export const Carousel = () => {
       <Container>
         <div className="rounded-2xl my-10 h-[800px] overflow-hidden border relative border-blue-800 ">
           <h1>{res}</h1>
-          {/* Slide-g component bolgoh */}
+
           <div
             className="w-[300%] h-full flex [&>div]:5xl"
             style={{
@@ -59,16 +62,6 @@ export const Carousel = () => {
               transition: "transform 0.5s",
             }}
           >
-            {/* <div className="flex-1 h-full flex justify-center items-center">
-            Slide1
-            </div>
-            <div className="flex-1 h-full flex justify-center items-center">
-            Slide2
-            </div>
-            <div className="flex-1 h-full flex justify-center items-center">
-            Slide3
-            </div> */}
-
             {slides.map((slideItem, index) => {
               return (
                 <div key={index} className="w-[100%]">
@@ -82,32 +75,8 @@ export const Carousel = () => {
               );
             })}
           </div>
-          {/* slideIndex-iig component bolgoh */}
+
           <div className="absolute flex gap-4 bottom-4 left-[calc(50%-52px)]">
-            {/* <div
-            className={`w-6 h-6 rounded-md ${
-              slideIndex === 0 ? "bg-slate-700" : "bg-slate-400"
-              } `}
-              onClick={() => {
-                setSlideIndex(0);
-                }}
-                ></div>
-                <div
-                className={`w-6 h-6 rounded-md ${
-                  slideIndex === 1 ? "bg-slate-700" : "bg-slate-400"
-                  } `}
-                  onClick={() => {
-                    setSlideIndex(1);
-                    }}
-                    ></div>
-                    <div
-                    className={`w-6 h-6 rounded-md ${
-                      slideIndex === 2 ? "bg-slate-700" : "bg-slate-400"
-                      } `}
-                      onClick={() => {
-                        setSlideIndex(2);
-                        }}
-                        ></div> */}
             {slides.map((_, index) => (
               <Indicator
                 key={index}
@@ -123,7 +92,6 @@ export const Carousel = () => {
   );
 };
 
-// Slide-g component bolgoh
 type SlideProps = {
   title: string;
   src: string;
@@ -148,7 +116,6 @@ const Slide = ({ title, src, price, logo }: SlideProps) => {
           </Button>
         </div>
 
-        {/* <Image src={image} className="object-cover w-full h-full" /> */}
         <div className="flex flex-1 relative">
           <div className="w-[400px] h-[400px] left-[400px] top-[185px] rounded-full bg-[#ECD2FA] absolute opacity-35 "></div>
           <div>
@@ -182,12 +149,10 @@ const Slide = ({ title, src, price, logo }: SlideProps) => {
   );
 };
 
-//   /* slideIndex-iig component bolgoh */
-
 type IndicatorProps = {
   activeColor: boolean;
   onClick: () => void;
-  //   setSlideIndex: Dispatch<SetStateAction<number>>;
+
   setSlideIndex: (index: number) => void;
 };
 
