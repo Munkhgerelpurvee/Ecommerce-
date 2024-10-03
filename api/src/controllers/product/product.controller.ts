@@ -1,12 +1,68 @@
 import { productModel } from "../../models/productModel";
 import { RequestHandler } from "express";
 
-// CRUD
-const getProducts: RequestHandler = async (req, res) => {
+type Filter = {
+  categories?: [string];
+  size?: [string];
+};
+
+// CRUD getSize
+export const getSizes: RequestHandler = async (req, res) => {
+  const { category, size } = req.query;
+  console.log(req.query);
+
   try {
-    const products = await productModel.find().populate("categories", {
+    const products = await productModel.find({}, { size: 1 });
+
+    const sizes = new Set();
+    products.forEach((product) => {
+      if (product.size && Array.isArray(product.size)) {
+        product.size.forEach((s) => sizes.add(s));
+      }
+    });
+
+    const uniqueSizes = Array.from(sizes);
+
+    res.send(uniqueSizes);
+  } catch (error) {
+    ("");
+    res.status(400).json({ ErrorMessage: " Error happenned" });
+  }
+};
+
+// // Fetch all products, selecting only the size field
+// const products = await productModel.find({}, { size: 1 });
+
+// // Use a Set to collect unique sizes
+// const uniqueSizes = [...new Set(products.flatMap(product => product.size))];
+
+// res.send(uniqueSizes);
+
+// CRUD getProducts
+const getProducts: RequestHandler = async (req, res) => {
+  const { category, size } = req.query;
+  // console.log(req.query);
+  console.log(req.query);
+
+  let filter: any = {};
+
+  if (category) {
+    // filter.categories?.forEach((el) => ({ $in: category }));
+    filter.categories = { $in: category };
+  }
+
+  if (size) {
+    // filter.size?.forEach((element) => ({ $in: size }));
+    filter.size = { $in: size };
+  }
+
+  try {
+    const products = await productModel.find(filter).populate("categories", {
       categoryName: 1,
     });
+    // .populate("review");
+    // console.log(products[0]);
+
     res.send(products);
   } catch (error) {
     ("");
@@ -38,6 +94,7 @@ const createProduct: RequestHandler = async (req, res) => {
       averageRating,
       totalReview,
       categories,
+      quantity,
     } = req.body;
 
     const product = await productModel.create({
@@ -51,11 +108,15 @@ const createProduct: RequestHandler = async (req, res) => {
       totalReview: totalReview,
       createdAt: new Date(),
       updatedAt: new Date(),
+      quantity: quantity,
     });
 
     res.send(product);
   } catch (error) {
-    res.status(400).json({ ErrorMessage: " Error happenned" });
+    console.log(error);
+    res
+      .status(400)
+      .json({ ErrorMessage: " Error happenned to create PRODUCT" });
   }
 };
 // CRUD
@@ -69,6 +130,7 @@ const updateProduct: RequestHandler = async (req, res) => {
       description,
       averageRating,
       totalReview,
+      quantity,
     } = req.body;
 
     const { id } = req.params;
@@ -85,6 +147,7 @@ const updateProduct: RequestHandler = async (req, res) => {
           description,
           averageRating,
           totalReview,
+          quantity,
         },
       },
       { new: true }

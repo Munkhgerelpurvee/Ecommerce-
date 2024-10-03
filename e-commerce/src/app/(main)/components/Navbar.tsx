@@ -15,10 +15,11 @@ export const Navbar = () => {
           width={27}
           height={27}
         />
+        <Link href="/">
+          <div className=" text-[#fff] text-sm font-normal ">ECOMMERCE</div>
+        </Link>
 
-        <div className=" text-[#fff] text-sm font-normal ">ECOMMERCE</div>
-
-        <Link href="/category">
+        <Link href="/products">
           <p className=" text-[#fff] text-sm font-normal ">Ангилал</p>
         </Link>
       </div>

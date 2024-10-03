@@ -22,7 +22,7 @@ export const ProductCard = ({
           // width={400}
           // height={300}
           fill
-          className={`object-cover rounded-xl`}
+          className={`object-cover rounded-2xl`}
         ></Image>
       </div>
       <div className="">

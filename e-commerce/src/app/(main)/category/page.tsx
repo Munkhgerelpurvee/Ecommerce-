@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { api } from "../../../axios";
-import { Container } from "../../../components/Container";
+import { Container } from "../components/Container";
 
-import { Navbar } from "../../../components/Navbar";
-import { Footer } from "../../../components/Footer";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 import { Checkbox } from "@/components/ui/checkbox";
 

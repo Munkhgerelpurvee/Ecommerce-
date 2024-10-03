@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { api } from "../axios";
+import { Button } from "../../../components/ui/button";
+import { api } from "../../../axios";
 import axios from "axios";
 import { Container } from "./Container";
 

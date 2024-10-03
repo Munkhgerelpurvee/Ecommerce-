@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { CartProvider } from "@/components/providers/CartProvider";
+import { CartProvider } from "./components/providers/CartProvider";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (

@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
-
-const productSchema = new Schema({
+const reviewSchema = new Schema({
   productName: {
     type: String,
     required: true,
@@ -12,21 +11,9 @@ const productSchema = new Schema({
     ref: "Category",
     required: true,
   },
-  review: {
-    type: Schema.Types.ObjectId,
-    ref: "Review",
-    // required: true,
-  },
+
   price: {
     type: Number,
-    required: true,
-  },
-  image: {
-    type: [String],
-    required: true,
-  },
-  size: {
-    type: [String],
     required: true,
   },
 
@@ -37,12 +24,10 @@ const productSchema = new Schema({
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now,
   },
   updatedAt: {
     type: Date,
     required: true,
-    default: Date.now,
   },
   quantity: {
     type: Number,
@@ -50,4 +35,4 @@ const productSchema = new Schema({
     default: 0,
   },
 });
-export const productModel = model("Product", productSchema);
+export const reviewModel = model("Review", reviewSchema, "products");

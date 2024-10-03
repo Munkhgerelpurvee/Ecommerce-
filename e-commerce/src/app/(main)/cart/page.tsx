@@ -1,6 +1,6 @@
 "use client";
 
-import { Product, useCart } from "@/components/providers/CartProvider";
+import { Product, useCart } from "../components/providers/CartProvider";
 import Link from "next/link";
 
 const Page = () => {

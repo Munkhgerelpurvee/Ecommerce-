@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
-import { Navbar } from "../../../components/Navbar";
-import { Footer } from "../../../components/Footer";
-import { Container } from "../../../components/Container";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { Container } from "../components/Container";
 
 // import { useAuth } from "../../../components/providers/AuthProvider";
 import { useState } from "react";
