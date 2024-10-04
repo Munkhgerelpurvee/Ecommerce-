@@ -40,7 +40,22 @@ export const getSizes: RequestHandler = async (req, res) => {
 
 // CRUD getProducts
 const getProducts: RequestHandler = async (req, res) => {
-  const { category, size } = req.query;
+  const { category, size, selectedPrice } = req.query;
+  console.log(selectedPrice);
+  console.log(category);
+
+  let parsedPrice: { min: number; max: number } | undefined;
+
+  if (selectedPrice && typeof selectedPrice === "string") {
+    try {
+      parsedPrice = JSON.parse(selectedPrice);
+    } catch (error) {
+      console.error("Error parsing selectedPrice:", error);
+      return res
+        .status(400)
+        .json({ ErrorMessage: "Invalid selectedPrice format." });
+    }
+  }
   // console.log(req.query);
   console.log(req.query);
 
@@ -56,10 +71,17 @@ const getProducts: RequestHandler = async (req, res) => {
     filter.size = { $in: size };
   }
 
+  if (selectedPrice) {
+    console.log(parsedPrice, "parced ");
+
+    filter.price = {
+      $gt: parsedPrice?.min ? Number(parsedPrice.min) : 0, // Default to 0 if min is not provided
+      $lt: parsedPrice?.max ? Number(parsedPrice.max) : Infinity, // Default to Infinity if max is not provided
+    };
+  }
+
   try {
-    const products = await productModel.find(filter).populate("categories", {
-      categoryName: 1,
-    });
+    const products = await productModel.find(filter).populate("categories");
     // .populate("review");
     // console.log(products[0]);
 

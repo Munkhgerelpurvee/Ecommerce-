@@ -24,7 +24,7 @@ const Page = () => {
     productName: string;
     price: number;
     image: [string];
-    category: Category[];
+    categories: Category[];
     size: string[];
     quantity: number;
     createdAt: string;
@@ -34,6 +34,10 @@ const Page = () => {
   interface Category {
     _id: string;
     categoryName: string;
+  }
+
+  interface CategoriesResponse {
+    categories: Category[];
   }
   interface ReviewType {
     _id: string;
@@ -52,12 +56,26 @@ const Page = () => {
   const [prices, setPrices] = useState<number>();
   const [review, setReview] = useState<ReviewType[]>([]);
   const [selectedReview, setSelectedReview] = useState<string>("");
-  const [selectedPrice, setSelectedPrice] = useState<string>("");
+  const [selectedPrice, setSelectedPrice] = useState<{}>("");
+  const priceOption = [
+    { min: 0, max: 10000 },
+    { min: 10000, max: 50000 },
+    { min: 50000, max: 100000 },
+    { min: 100000, max: 500000 },
+    { min: 500000, max: "500000-as deesh" },
+  ];
 
   //
   const getProducts = async () => {
     try {
-      const response = await api.get("/products");
+      const response = await api.get("/products", {
+        params: {
+          selectedPrice: selectedPrice,
+          category: [selectedCategory],
+        },
+      });
+      console.log(response.data, "=================");
+
       setproducts(response.data as Product[]);
       //
       console.log("FRONTEND getProducts FROM Be", response.data);
@@ -65,6 +83,8 @@ const Page = () => {
       console.error("Products backEnd-c авч чадсангүй SORRY:", error);
     }
   };
+
+  console.log(products, "bbbbbbbhhhhgg");
 
   //
   const getCategories = async () => {
@@ -78,20 +98,24 @@ const Page = () => {
   // getReview
 
   const getReview = async () => {
+    // Make the API call
     try {
-      const response = await api.get("/review");
+      // console.log(parsedPrice);
+
+      const response = await api.get("/review"); // Ensure parsedPrice is passed correctly
       setReview(response.data as ReviewType[]);
     } catch (error) {
-      console.log("getReview авч чадсангүй where --- admin/products/page");
+      console.log("Error fetching reviews: ", error);
     }
   };
+
   console.log(review, "getReview---");
 
   useEffect(() => {
     getProducts();
     getCategories();
     getReview();
-  }, []);
+  }, [selectedPrice, selectedCategory]);
   return (
     <>
       <div className="felx-1 bg-[#1C202414] ">
@@ -107,6 +131,7 @@ const Page = () => {
         </div>
         <div className="flex justify-between mb-5 mx-10">
           <div className="flex gap-3">
+            {/* category */}
             <Select
               onValueChange={(value) =>
                 setSelectedCategory(value === "clear" ? "" : value)
@@ -119,7 +144,7 @@ const Page = () => {
                 <SelectGroup>
                   {categories?.map((item, index) => {
                     return (
-                      <SelectItem key={index} value={item.categoryName}>
+                      <SelectItem key={index} value={item._id}>
                         {item.categoryName}
                       </SelectItem>
                     );
@@ -129,19 +154,20 @@ const Page = () => {
             </Select>
             {/* price */}
             <Select
-              onValueChange={(value) =>
-                setSelectedPrice(value === "clear" ? "" : value)
-              }
+              onValueChange={(value) => {
+                console.log(value);
+                setSelectedPrice(value);
+              }}
             >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Үнэ" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {review?.map((item, index) => {
+                  {priceOption?.map((item, index) => {
                     return (
-                      <SelectItem key={index} value={item.price}>
-                        {item.price}
+                      <SelectItem key={index} value={JSON.stringify(item)}>
+                        {item.min} - {item.max}
                       </SelectItem>
                     );
                   })}
@@ -214,7 +240,11 @@ const Page = () => {
                   </div>
                 </div>
                 <div className="flex-1 flex items-center justify-center">
-                  {/* {item.category} */}
+                  {Array.isArray(item.categories) && item.categories.length > 0
+                    ? item.categories[0].categoryName
+                    : "No category"}
+
+                  {/* {item.category[0]?.categoryName || "No category"} */}
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   {item.price}₮

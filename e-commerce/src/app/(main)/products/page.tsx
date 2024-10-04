@@ -44,10 +44,7 @@ const Page = () => {
         console.log(response.data, "========= getSizes");
         setSizes(response.data);
       } catch (error) {
-        console.error(
-          "getSizes backEnd-c getSizes авч чадсангүй SORRY:",
-          error
-        );
+        console.error("getSizes backEnd-c  авч чадсангүй SORRY:", error);
       } finally {
         setLoading(false);
       }
@@ -104,22 +101,6 @@ const Page = () => {
 
     getCategories();
   }, []);
-
-  // const filteredCategoryProducts = products
-  //   .filter((product) => {
-  //     if (selectedCategory === "") return true; // Show all products if no category is selected
-  //     return product.category.some(
-  //       (cat) => cat.categoryName === selectedCategory
-  //     );
-  //   })
-  //   .filter((product) => {
-  //     if (size === "" || size === null) return true;
-  //     return product.size.includes(size);
-  //   });
-  // useEffect(() => {
-  //   getProducts();
-  //   getCategories();
-  // }, []);
 
   return (
     <>
@@ -185,10 +166,6 @@ const Page = () => {
                 {sizes.map((sizeItem, index) => {
                   return (
                     <div
-                      // onClick={() => setSize(item.size[index])}
-                      // className={`cursor-pointer hover:text-green-400  hover:font-semibold duration-1000 ${
-                      //   size === item.size[index] ? "underline" : ""
-                      // }`}
                       key={index}
                       className="cursor-pointer"
                       style={{
