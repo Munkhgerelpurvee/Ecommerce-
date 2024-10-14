@@ -5,8 +5,14 @@ import { CarouselHoodie } from "./components/CarouselHoodie";
 import { ProductGrid } from "./components/ProductGrid";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { TestUserCard } from "./components/TsetUserCard";
+import { TestUserList } from "./components/TsetUserList";
+import users from "./MOCK_DATA.json";
 
 function Home() {
+  const close = () => {
+    return false;
+  };
   return (
     <>
       <Navbar />
@@ -19,6 +25,17 @@ function Home() {
         className=" flex
          h-96 items-center justify-center mb-20 m-auto"
       />
+      <TestUserCard
+        userProps={{
+          first_name: "Naraa",
+          last_name: "Bataa",
+          gender: "man",
+          ip_address: "210.49.34.197",
+          email: "tweddeburn1d@hud.gov",
+        }}
+        closeProps={close}
+      />
+      <TestUserList usersList={users} />
 
       <Footer />
     </>

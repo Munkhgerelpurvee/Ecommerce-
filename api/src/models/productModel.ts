@@ -6,28 +6,32 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  productCode: {
+    type: Number,
+    required: true,
+  },
 
   categories: {
     type: [Schema.Types.ObjectId],
     ref: "Category",
-    required: true,
+    required: false,
   },
   review: {
     type: Schema.Types.ObjectId,
     ref: "Review",
-    // required: true,
+    required: false,
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   image: {
     type: [String],
-    required: true,
+    required: false,
   },
   size: {
     type: [String],
-    required: true,
+    required: false,
   },
 
   description: String,
@@ -36,17 +40,17 @@ const productSchema = new Schema({
 
   createdAt: {
     type: Date,
-    required: true,
+    required: false,
     default: Date.now,
   },
   updatedAt: {
     type: Date,
-    required: true,
+    required: false,
     default: Date.now,
   },
   quantity: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
 });

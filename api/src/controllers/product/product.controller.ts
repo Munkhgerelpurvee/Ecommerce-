@@ -105,6 +105,8 @@ const getOneProduct: RequestHandler = async (req, res) => {
 };
 // CRUD
 const createProduct: RequestHandler = async (req, res) => {
+  console.log(req.body);
+
   try {
     // console.log("WHERE IS CREATE PRODUCTs REQ.BODY", req.body);
     const {
@@ -117,6 +119,7 @@ const createProduct: RequestHandler = async (req, res) => {
       totalReview,
       categories,
       quantity,
+      productCode,
     } = req.body;
 
     const product = await productModel.create({
@@ -131,6 +134,7 @@ const createProduct: RequestHandler = async (req, res) => {
       createdAt: new Date(),
       updatedAt: new Date(),
       quantity: quantity,
+      productCode: productCode,
     });
 
     res.send(product);

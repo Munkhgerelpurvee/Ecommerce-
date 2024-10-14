@@ -1,4 +1,5 @@
 "use client";
+import express, { Request, Response, NextFunction } from "express";
 
 import { api } from "@/axios";
 import Image from "next/image";
@@ -18,31 +19,60 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+interface addProductType {
+  productName: string;
+  description: String;
+  productCode: Number;
+  price: number;
+  image: [string];
+  categories: string[];
+  size: string[];
+  quantity: number;
+}
+
+interface categories {
+  _id: string;
+  categoryName: string;
+}
+
+//
+
 const AddProduct = () => {
-  interface Product {
-    _id: string;
-    productName: string;
-    price: number;
-    image: [string];
-    // categories: Category[];
-    size: string[];
-    quantity: number;
-    createdAt: string;
-    updatedAt: string;
-  }
   const [productName, setProductName] = useState<string>("");
   console.log(productName);
+  const [addDescription, setAddDescription] = useState<string>("");
+  console.log(addDescription);
+  const [addProductCode, setAddProductCode] = useState<number>(0);
+  console.log(addProductCode);
 
-  const createProduct: RequestHandler = async (req, res) => {
+  // if (!productName || !addDescription || !addProductCode) {
+  //   // console.log("productName:", productName);
+  //   // console.log("description:", addDescription);
+  //   // console.log("productCode:", addProductCode);
+
+  //   return;
+  // }
+  const createProduct = async () => {
     try {
-      const response = await api.post("/product", { productName });
-      setProductName(response.data);
-    } catch (error) {
-      res.status(400).json({
-        ErrorMessage: " Error happenned to create PRODUCT admin--addProduct",
+      const response = await api.post("/product", {
+        productName: productName,
+        description: addDescription,
+        productCode: addProductCode,
       });
+
+      setProductName("");
+      setAddDescription("");
+
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(
+        " Error happenned to create PRODUCT admin--addProduct",
+        error
+      );
     }
   };
+
+  // console.log(createProduct, "create PRODUCT admin--addProduct");
 
   return (
     <>
@@ -78,6 +108,8 @@ const AddProduct = () => {
                 <textarea
                   placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
                   className="bg-[#F7F7F8] text-[#8B8E95] p-2 rounded-lg w-full resize-none"
+                  value={addDescription}
+                  onChange={(event) => setAddDescription(event.target.value)}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -87,19 +119,30 @@ const AddProduct = () => {
                 <input
                   placeholder="#12345678"
                   className="bg-[#F7F7F8] text-[#8B8E95] p-2 rounded-lg w-full"
+                  value={addProductCode}
+                  onChange={(event) =>
+                    setAddProductCode(parseFloat(event.target.value))
+                  }
                 />
               </div>
             </div>
           </div>
-          <div className="flex-1 bg-blue-300">
+          <div className="flex-1 flex-col bg-blue-300">
+            <div className="bg-green-200 rounded-lg w-full flex flex-col "></div>
             flex2
             <div className="w-full flex justify-center">
               <div className="flex gap-6">
                 <div
-                  // onClick={() => createProduct()}
-                  className="bg-black text-white font-semibold cursor-pointer rounded-lg w-fit px-5 py-4 text-lg"
+                  onClick={() => createProduct()}
+                  className="bg-white text-black font-semibold cursor-pointer rounded-lg w-fit px-5 py-2 text-lg"
                 >
-                  Бараа нэмэх
+                  Ноорог
+                </div>
+                <div
+                  onClick={() => createProduct()}
+                  className="bg-black text-white font-semibold cursor-pointer rounded-lg w-fit px-5 py-2 text-lg"
+                >
+                  Нийтлэх
                 </div>
               </div>
             </div>

@@ -124,7 +124,7 @@ export const ProductGrid = () => {
       setProducts(response.data);
       console.log("prooo", response.data);
     } catch (error) {
-      console.log("Products backEnd-s avch chadsangui");
+      console.log("getCloudProducts backEnd-s avch chadsangui");
     }
   };
 
