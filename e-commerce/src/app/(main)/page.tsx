@@ -8,6 +8,7 @@ import { Footer } from "./components/Footer";
 import { TestUserCard } from "./components/TsetUserCard";
 import { TestUserList } from "./components/TsetUserList";
 import users from "./MOCK_DATA.json";
+import App from "../(main)/components/FilterablaProductTable";
 
 function Home() {
   const close = () => {
@@ -36,6 +37,7 @@ function Home() {
         closeProps={close}
       />
       <TestUserList usersList={users} />
+      <App />
 
       <Footer />
     </>
