@@ -122,7 +122,7 @@ export const ProductGrid = () => {
     try {
       const response = await api.get("/products");
       setProducts(response.data);
-      console.log("prooo", response.data);
+      console.log("ProductGrid Component", response.data);
     } catch (error) {
       console.log("getCloudProducts backEnd-s avch chadsangui");
     }
